@@ -708,6 +708,7 @@ impl<S: StorageProvider> Engine<S> {
             last_proposed_message_id: None,
         });
         request.last_proposed_epoch = Some(proposed_epoch);
+        request.last_proposed_message_id = Some(msg.id.clone());
         self.record_sent_openmls_message_with_leave_request(
             &msg,
             proposal_bytes.as_slice(),
@@ -834,6 +835,7 @@ impl<S: StorageProvider> Engine<S> {
         let (msg, proposal_bytes, proposed_epoch) =
             self.prepare_self_remove_proposal(group_id).await?;
         request.last_proposed_epoch = Some(proposed_epoch);
+        request.last_proposed_message_id = Some(msg.id.clone());
         self.record_sent_openmls_message_with_leave_request(
             &msg,
             proposal_bytes.as_slice(),
